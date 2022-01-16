@@ -8,7 +8,7 @@ import json
 from flask import request
 
 
-@app.route('/grade_query_once', methods=["POST"])
+@app.route('/api/grade_query_once', methods=["POST"])
 def grade_query_once():
     # username = request.json.get("username").strip()
     # password = request.json.get("password").strip()
@@ -21,7 +21,7 @@ def grade_query_once():
     return res
 
 
-@app.route('/grade_query_subscribe', methods=["POST"])
+@app.route('/api/grade_query_subscribe', methods=["POST"])
 def grade_query_subscribe():
     # username = request.json.get("username").strip()
     # password = request.json.get("password").strip()
