@@ -14,7 +14,7 @@ class User(db.Model):
     session_key = db.Column(db.String(128))
     openid = db.Column(db.String(128))
     email = db.Column(db.String(64))
-    grade_length = db.Column(db.Integer)
+    grades_length = db.Column(db.Integer)
 
 
 class SubscribeUser(db.Model):
@@ -22,7 +22,10 @@ class SubscribeUser(db.Model):
     __tablename__ = 'subscribe_user'
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    userid = db.Column(db.Integer)
+    username = db.Column(db.String(64))
+    password = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    grades_length = db.Column(db.Integer)
 
 
 

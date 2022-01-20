@@ -23,13 +23,11 @@ def grade_query_once():
 
 @app.route('/api/grade_query_subscribe', methods=["POST"])
 def grade_query_subscribe():
-    # username = request.json.get("username").strip()
-    # password = request.json.get("password").strip()
 
     username = request.json.get("username").strip()
     password = request.json.get("password").strip()
     email = request.json.get("email").strip()
 
-    res = grade_subscribe(username, password, email)
+    res = grade_subscribe_start(username, password, email)
 
     return "done"

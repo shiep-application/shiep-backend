@@ -1,6 +1,7 @@
 import requests
 import json
 from service.grade_query_subscribe import *
+from dao.subscribe_dao import *
 
 
 def grade_query_from_remote(username, password):
@@ -22,13 +23,45 @@ def grade_query_from_remote(username, password):
     return json.dumps(grades)
 
 
-def grade_subscribe(username, password, email):
+def check_subscribe(username, password, email, grades_length):
+    # 如果订阅用户不在已订阅列表，添加至订阅表
+    if not check_subscriber_exists(username):
+        add_one_subscriber(username, password, email, grades_length)
+
+
+def grade_subscribe_start(username, password, email):
     config = read_config()
     grades = json.loads(grade_query_from_remote(username, password))
+
     length = len(grades)
+    check_subscribe(username, password, email, length)
+
     sendmail("服务启动成功", generate_html(grades), config, email)
-    while True:
+
+
+def update_grades_len(username, new_len):
+    update_subscriber_grades_len(username, new_len)
+
+
+def auto_grade_query():
+    subcribers = get_all_subscribers()
+    config = read_config()  # 读取邮件发送配置文件
+    for subscriber in subcribers:
+        username = subscriber.username
+        password = subscriber.password
+        email = subscriber.email
+        length = subscriber.grades_length
+
         new_grades = json.loads(grade_query_from_remote(username, password))
         if len(new_grades) != length:  # 出新成绩了
+            print("grades_len: " + str(length))
+            print("new_grades_len: " + str(len(new_grades)))
             sendmail("出新成绩了！", generate_html(new_grades), config, email)
-        time.sleep(60)
+
+            # 更新用户成绩长度
+            update_grades_len(username, len(new_grades))
+
+
+
+
+
