@@ -8,7 +8,7 @@ import json
 from flask import request
 
 
-@app.route('/job_start', methods=["GET"])
+@app.route('/api/job_start', methods=["GET"])
 def job_start():
     sched = BackgroundScheduler(timezone='Asia/Shanghai')
     job = sched.add_job(auto_grade_query, 'interval', seconds=60, id="auto_grade_query", max_instances=10)
@@ -18,7 +18,7 @@ def job_start():
     return "done"
 
 
-@app.route('/job_pause', methods=["GET"])
+@app.route('/api/job_pause', methods=["GET"])
 def job_pause():
     job = global_variable.get_value('job')
     try:
@@ -28,7 +28,7 @@ def job_pause():
     return "done"
 
 
-@app.route('/job_resume', methods=["GET"])
+@app.route('/api/job_resume', methods=["GET"])
 def job_resume():
     job = global_variable.get_value('job')
     try:
@@ -39,7 +39,7 @@ def job_resume():
     return "done"
 
 
-@app.route('/job_status', methods=["GET"])
+@app.route('/api/job_status', methods=["GET"])
 def job_status():
     job = global_variable.get_value('job')
     if re.search('pause+', str(job)):
