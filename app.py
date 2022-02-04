@@ -4,6 +4,7 @@ from config import *
 import controller.grade_controller
 import controller.user_controller
 import controller.job_controller
+import controller.wxcheck_controller
 import global_variable
 
 
