@@ -23,6 +23,8 @@ def wx_check():
     tmpStr = (str(tmpArr[0]) + str(tmpArr[1]) + str(tmpArr[2])).encode('utf-8')
     tmpStr = hashlib.sha1(tmpStr)
 
+    print("tmpStr: " + str(tmpStr))
+    print("signature: " + str(signature))
     if tmpStr == signature:
         print("equal")
         return echostr
