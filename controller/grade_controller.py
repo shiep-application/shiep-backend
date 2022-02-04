@@ -10,8 +10,6 @@ from flask import request
 
 @app.route('/api/grade_query_once', methods=["POST"])
 def grade_query_once():
-    # username = request.json.get("username").strip()
-    # password = request.json.get("password").strip()
 
     username = request.json.get("username").strip()
     password = request.json.get("password").strip()

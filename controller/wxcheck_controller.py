@@ -11,9 +11,9 @@ import hashlib
 
 @app.route('/api/wxcheck', methods=["GET"])
 def wx_check():
-    signature = request.json.get("signature").strip()
-    timestamp = request.json.get("timestamp").strip()
-    nonce = request.json.get("nonce").strip()
+    signature = request.args.get("signature")
+    timestamp = request.args.get("timestamp")
+    nonce = request.args.get("nonce")
 
     token = "wxcheck"
     tmpArr = [token, timestamp, nonce]
