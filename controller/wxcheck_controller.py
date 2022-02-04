@@ -14,6 +14,7 @@ def wx_check():
     signature = request.args.get("signature")
     timestamp = request.args.get("timestamp")
     nonce = request.args.get("nonce")
+    echostr = request.args.get("echostr")
 
     token = "wxcheck"
     tmpArr = [token, timestamp, nonce]
@@ -23,6 +24,6 @@ def wx_check():
     tmpStr = hashlib.sha1(tmpStr)
 
     if tmpStr == signature:
-        return True
+        return echostr
     else:
-        return False
+        return ""
