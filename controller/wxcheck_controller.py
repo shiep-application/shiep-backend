@@ -21,7 +21,7 @@ def wx_check():
 
     tmpArr.sort()
     tmpStr = (str(tmpArr[0]) + str(tmpArr[1]) + str(tmpArr[2])).encode('utf-8')
-    tmpStr = hashlib.sha1(tmpStr)
+    tmpStr = hashlib.sha1(tmpStr).hexdigest()
 
     print("tmpStr: " + str(tmpStr))
     print("signature: " + str(signature))
