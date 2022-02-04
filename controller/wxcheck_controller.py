@@ -24,6 +24,8 @@ def wx_check():
     tmpStr = hashlib.sha1(tmpStr)
 
     if tmpStr == signature:
+        print("equal")
         return echostr
     else:
+        print("not equal")
         return ""
