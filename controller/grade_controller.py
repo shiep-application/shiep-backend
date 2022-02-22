@@ -19,13 +19,24 @@ def grade_query_once():
     return res
 
 
-@app.route('/api/grade_query_subscribe', methods=["POST"])
-def grade_query_subscribe():
+@app.route('/api/grade_query_subscribe_mail', methods=["POST"])
+def grade_query_subscribe_mail():
 
     username = request.json.get("username").strip()
     password = request.json.get("password").strip()
     email = request.json.get("email").strip()
 
-    res = grade_subscribe_start(username, password, email)
+    res = grade_subscribe_start_mail(username, password, email)
+
+    return "done"
+
+
+@app.route('/api/grade_query_subscribe_wx', methods=["POST"])
+def grade_query_subscribe_wx():
+
+    username = request.json.get("username").strip()
+    password = request.json.get("password").strip()
+
+    res = grade_subscribe_start_mail(username, password)
 
     return "done"

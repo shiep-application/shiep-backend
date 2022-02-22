@@ -11,7 +11,7 @@ from flask import request
 @app.route('/api/job_start', methods=["GET"])
 def job_start():
     sched = BackgroundScheduler(timezone='Asia/Shanghai')
-    job = sched.add_job(auto_grade_query, 'interval', seconds=60, id="auto_grade_query", max_instances=10)
+    job = sched.add_job(auto_grade_query_mail, 'interval', seconds=60, id="auto_grade_query", max_instances=10)
     sched.start()
 
     global_variable.set_value('job', job)

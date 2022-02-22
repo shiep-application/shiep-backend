@@ -11,10 +11,8 @@ class User(db.Model):
     username = db.Column(db.String(64))
     name = db.Column(db.String(64))
     password = db.Column(db.String(64))
-    session_key = db.Column(db.String(128))
+    access_token = db.Column(db.String(128))
     openid = db.Column(db.String(128))
-    email = db.Column(db.String(64))
-    grades_length = db.Column(db.Integer)
 
 
 class SubscribeUser(db.Model):
@@ -23,9 +21,9 @@ class SubscribeUser(db.Model):
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64))
-    password = db.Column(db.String(64))
     email = db.Column(db.String(64))
     grades_length = db.Column(db.Integer)
+    lesson_grade_ids = db.Column(db.JSON)
 
 
 

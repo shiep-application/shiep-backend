@@ -27,7 +27,7 @@ def check_subscribe(username, password, email, grades_length):
         add_one_subscriber(username, password, email, grades_length)
 
 
-def grade_subscribe_start(username, password, email):
+def grade_subscribe_start_mail(username, password, email):
     config = read_config()
     grades = json.loads(grade_query_from_remote(username, password))
 
@@ -41,7 +41,7 @@ def update_grades_len(username, new_len):
     update_subscriber_grades_len(username, new_len)
 
 
-def auto_grade_query():
+def auto_grade_query_mail():
     subcribers = get_all_subscribers()
     config = read_config()  # 读取邮件发送配置文件
     for subscriber in subcribers:

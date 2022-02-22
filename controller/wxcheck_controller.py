@@ -31,3 +31,21 @@ def wx_check():
     else:
         print("not equal")
         return ""
+
+
+@app.route('/api/wx_post_code', methods=["POST"])
+def wx_post_code():
+    code = request.json.get("code").strip()
+    url = "https://api.weixin.qq.com/sns/jscode2session?" \
+          "appid=wxf7b1dedbb710515a&" \
+          "secret=6f83949ea64601e64f3e3d48deba3ece&" \
+          "js_code=" + code + "&" +\
+          "grant_type=authorization_code"
+
+    response = requests.get(url)
+    print(response.status_code)
+    print(response.text)
+    res = json.loads(response.text)
+    session_key = res["session_key"]
+    openid = res["openid"]
+    return ""
