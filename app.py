@@ -6,6 +6,10 @@ import controller.user_controller
 import controller.job_controller
 import controller.wxcheck_controller
 import global_variable
+from api_exception import *
+
+
+custom_exception_handlers(app)
 
 
 @app.route('/')

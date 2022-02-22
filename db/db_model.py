@@ -11,13 +11,13 @@ class User(db.Model):
     username = db.Column(db.String(64))
     name = db.Column(db.String(64))
     password = db.Column(db.String(64))
-    access_token = db.Column(db.String(128))
+    sessionkey = db.Column(db.String(128))
     openid = db.Column(db.String(128))
 
 
-class SubscribeUser(db.Model):
+class SubscribeUserWeb(db.Model):
     # 定义表名
-    __tablename__ = 'subscribe_user'
+    __tablename__ = 'subscribe_user_web'
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64))
@@ -25,6 +25,16 @@ class SubscribeUser(db.Model):
     grades_length = db.Column(db.Integer)
     lesson_grade_ids = db.Column(db.JSON)
 
+
+class SubscribeUserWX(db.Model):
+    # 定义表名
+    __tablename__ = 'subscribe_user_wx'
+    # 定义字段
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    grades_length = db.Column(db.Integer)
+    lesson_grade_ids = db.Column(db.JSON)
 
 
 if __name__ == '__main__':
