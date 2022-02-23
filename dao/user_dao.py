@@ -3,7 +3,7 @@ from db.db_model import *
 
 
 def check_user_bound(session_key, open_id):
-    results = db.session.query(User).filter_by(sessionkey=session_key, openid=open_id).all()
+    results = db.session.query(User).filter_by(openid=open_id).all()
     print(results)
     # 是未绑定用户
     if len(results) == 0:
@@ -13,7 +13,7 @@ def check_user_bound(session_key, open_id):
 
 
 def query_user(session_key, open_id):
-    results = db.session.query(User).filter_by(sessionkey=session_key, openid=open_id).all()
+    results = db.session.query(User).filter_by(openid=open_id).all()
     return results[0]
 
 
