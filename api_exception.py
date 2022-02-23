@@ -27,7 +27,9 @@ class APIException(HTTPException):
     def get_headers(self, environ=None):  # 这里主要是想指定格式  application/json
         return [("Content-Type", self.headers)]
 
-
+class UNKNOWN_EXCEPTION(APIException):
+    code = 00000
+    message = "发生了未知的错误"
 class WX_OPENID_FAILED(APIException):
     code = 10001
     message = "微信开放平台后台错误"

@@ -50,3 +50,15 @@ def code2open_id(code):
             raise WX_OPENID_FAILED
     else:
         raise WX_OPENID_FAILED
+
+
+def code2userinfo(code):
+    res = code2open_id(code)
+    # 转换正常
+    if "open_id" in res:
+        open_id = res["open_id"]
+        session_key = res["session_key"]
+        return query_user(session_key, open_id)
+    # 转换出错
+    else:
+        raise UNKNOWN_EXCEPTION
