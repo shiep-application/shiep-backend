@@ -1,14 +1,6 @@
 from db.db_singleton_provider import app
-from apscheduler.schedulers.background import BackgroundScheduler
-import datetime
-from manager.grade_manager import *
-import re
-from config import *
-import json
-from flask import request
-from service.code2userinfo import *
-import hashlib
-from api_exception import *
+from manager.user_manager import *
+from service.check_username_and_password import *
 from dao.user_dao import *
 
 
@@ -17,10 +9,23 @@ def wx_auto_login():
     code = request.json.get("code").strip()
     return check_and_login(code)
 
+
 @app.route('/api/code2openid', methods=["POST"])
 def code2openid():
     code = request.json.get("code").strip()
     return code2userinfo(code)
+
+
+@app.route('/api/check_bound', methods=["POST"])
+def check_bound():
+    code = request.json.get("code").strip()
+    user_info = code2userinfo(code)
+    session_key = user_info["session_key"]
+    open_id = user_info["openid"]
+    if check_user_bound(session_key, open_id):
+        return True
+    else:
+        return False
 
 
 @app.route('/api/bound_user', methods=["POST"])
@@ -30,20 +35,5 @@ def bound_user():
     session_key = request.json.get("session_key").strip()
     open_id = request.json.get("open_id").strip()
 
-    # 验证是否已经是已绑定用户
-    if check_user_bound(session_key, open_id):
-        raise USER_ALREADY_BOUND
+    return check_and_bound(username, password, open_id, session_key)
 
-    # 验证账户密码是否正确
-    url = "http://api.shiep.xuyuyan.cn:7788/grade_query"
-    data = {"username": username, "password": password}
-    headers = {'Content-Type': 'application/json;charset=UTF-8'}
-    response = requests.post(url, json=data, headers=headers)
-    res = json.loads(response.text)
-    # 身份验证存在错误
-    if "code" in res:
-        return res
-    else:
-    # 身份验证通过，添加绑定用户至数据表
-        add_user(username, password, session_key, open_id)
-        return {"status": "success"}
