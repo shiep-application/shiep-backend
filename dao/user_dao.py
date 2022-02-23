@@ -5,9 +5,10 @@ from db.db_model import *
 def check_user_bound(session_key, open_id):
     results = db.session.query(User).filter_by(openid=open_id).all()
     print(results)
-    # 是未绑定用户
+    # 未绑定用户
     if len(results) == 0:
         return False
+    # 已绑定用户
     else:
         return True
 

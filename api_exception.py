@@ -35,10 +35,13 @@ class WX_OPENID_FAILED(APIException):
 class USER_NOT_BOUND(APIException):
     code = 20001
     message = "未绑定用户，请先绑定"
+class USER_ALREADY_BOUND(APIException):
+    code = 20002
+    message = "请勿重复绑定"
 
 err_list = {
     WX_OPENID_FAILED,
-    USER_NOT_BOUND
+    USER_NOT_BOUND, USER_ALREADY_BOUND,
 }
 
 

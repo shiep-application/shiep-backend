@@ -30,6 +30,10 @@ def bound_user():
     session_key = request.json.get("session_key").strip()
     open_id = request.json.get("open_id").strip()
 
+    # 验证是否已经是已绑定用户
+    if check_user_bound(session_key, open_id):
+        raise USER_ALREADY_BOUND
+
     # 验证账户密码是否正确
     url = "http://api.shiep.xuyuyan.cn:7788/grade_query"
     data = {"username": username, "password": password}
@@ -38,7 +42,6 @@ def bound_user():
     res = json.loads(response.text)
     # 身份验证存在错误
     if "code" in res:
-        res["status"] = "fail"
         return res
     else:
     # 身份验证通过，添加绑定用户至数据表
