@@ -37,3 +37,12 @@ def bound_user():
 
     return check_and_bound(username, password, open_id, session_key)
 
+
+@app.route('/api/cancel_bound_user', methods=["POST"])
+def cancel_bound_user():
+    username = request.json.get("username").strip()
+    password = request.json.get("password").strip()
+    session_key = request.json.get("session_key").strip()
+    open_id = request.json.get("open_id").strip()
+
+    return check_and_cancel(username, password, open_id, session_key)

@@ -48,3 +48,14 @@ def alt_user(username, password, open_id):
     except Exception as e:
         db.session.rollback()
         raise e
+
+
+def delete_user(username, password, open_id):
+    try:
+        User.query.filter(User.username == username, User.password == password, User.openid == open_id)\
+            .delete()
+        # 提交会话
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        raise e

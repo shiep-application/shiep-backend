@@ -22,3 +22,18 @@ def check_and_bound(username, password, open_id, session_key):
         else:
             add_user(username, password, session_key, open_id)
         return {"status": "success"}
+
+
+def check_and_cancel(username, password, open_id, session_key):
+    # 验证是否已经是已绑定用户
+    if not check_user_bound_and_info(username, password, open_id):
+        raise USER_NOT_BOUND
+
+    res = check_username_and_password(username, password)
+    # 身份验证存在错误
+    if res != "success":
+        return res
+    else:
+        # 身份验证通过，删除绑定信息
+        delete_user(username, password, open_id)
+        return {"status": "success"}
