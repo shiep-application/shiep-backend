@@ -31,7 +31,7 @@ def check_and_login(code):
         raise WX_OPENID_FAILED
 
 
-def code2userinfo(code):
+def code2open_id(code):
     url = "https://api.weixin.qq.com/sns/jscode2session?" \
           "appid=wxf7b1dedbb710515a&" \
           "secret=6f83949ea64601e64f3e3d48deba3ece&" \

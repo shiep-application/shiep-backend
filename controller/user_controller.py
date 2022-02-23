@@ -13,13 +13,13 @@ def wx_auto_login():
 @app.route('/api/code2openid', methods=["POST"])
 def code2openid():
     code = request.json.get("code").strip()
-    return code2userinfo(code)
+    return code2open_id(code)
 
 
 @app.route('/api/check_bound', methods=["POST"])
 def check_bound():
     code = request.json.get("code").strip()
-    user_info = code2userinfo(code)
+    user_info = code2open_id(code)
     session_key = user_info["session_key"]
     open_id = user_info["openid"]
     if check_user_bound(session_key, open_id):
