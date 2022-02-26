@@ -32,8 +32,7 @@ class SubscribeUserWX(db.Model):
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64))
-    email = db.Column(db.String(64))
-    grades_length = db.Column(db.Integer)
+    sub_times = db.Column(db.Integer)
     lesson_grade_ids = db.Column(db.JSON)
 
 

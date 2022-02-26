@@ -46,3 +46,4 @@ def cancel_bound_user():
     open_id = request.json.get("open_id").strip()
 
     return check_and_cancel(username, password, open_id, session_key)
+

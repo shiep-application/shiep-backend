@@ -28,8 +28,15 @@ class APIException(HTTPException):
         return [("Content-Type", self.headers)]
 
 class UNKNOWN_EXCEPTION(APIException):
-    code = 00000
+    code = 90000
     message = "发生了未知的错误"
+class PARAM_IS_NULL(APIException):
+    code = 90001
+    message = "部分参数为空"
+class REMOTE_SERVER_PAUSE(APIException):
+    code = 90002
+    message = "远端服务器故障"
+
 class WX_OPENID_FAILED(APIException):
     code = 10001
     message = "微信开放平台后台错误"
@@ -40,6 +47,8 @@ class USER_NOT_BOUND(APIException):
 class USER_ALREADY_BOUND(APIException):
     code = 20002
     message = "请勿重复绑定"
+
+
 
 err_list = {
     WX_OPENID_FAILED,
