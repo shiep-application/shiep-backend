@@ -7,6 +7,7 @@ import controller.grade_subscribe_mail_controller
 import controller.user_controller
 import controller.job_controller
 import controller.wxcheck_controller
+import controller.lesson_table_controller
 import global_variable
 from api_exception import *
 
