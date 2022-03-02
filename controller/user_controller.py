@@ -19,13 +19,19 @@ def code2openid():
 @app.route('/api/check_bound', methods=["POST"])
 def check_bound():
     code = request.json.get("code").strip()
-    user_info = code2open_id(code)
+    try:
+        user_info = code2open_id(code)
+    except WX_OPENID_FAILED:
+        raise WX_OPENID_FAILED
+    except Exception:
+        raise UNKNOWN_EXCEPTION
+    print(user_info)
     session_key = user_info["session_key"]
-    open_id = user_info["openid"]
+    open_id = user_info["open_id"]
     if check_user_bound(session_key, open_id):
-        return True
+        return "true"
     else:
-        return False
+        return "false"
 
 
 @app.route('/api/bound_user', methods=["POST"])
@@ -40,10 +46,23 @@ def bound_user():
 
 @app.route('/api/cancel_bound_user', methods=["POST"])
 def cancel_bound_user():
-    username = request.json.get("username").strip()
-    password = request.json.get("password").strip()
-    session_key = request.json.get("session_key").strip()
-    open_id = request.json.get("open_id").strip()
+    code = request.json.get("code").strip()
 
-    return check_and_cancel(username, password, open_id, session_key)
+    try:
+        user = code2userinfo(code)
+    except WX_OPENID_FAILED:
+        raise WX_OPENID_FAILED
+
+    session_key = user.sessionkey
+    open_id = user.openid
+    username = str(user.username).strip()
+    password = str(user.password).strip()
+
+    try:
+        return check_and_cancel(username, password, open_id, session_key)
+    except REMOTE_SERVER_PAUSE:
+        raise REMOTE_SERVER_PAUSE
+
+
+
 
