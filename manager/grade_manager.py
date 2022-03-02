@@ -12,7 +12,7 @@ def grade_query_from_remote(username, password):
     print(response.text)
     if response.status_code != 200:
         raise REMOTE_SERVER_PAUSE
-    if "code" in json.loads(response.text):
+    if "err_code" in json.loads(response.text):
         return response.text
 
     grades = []
